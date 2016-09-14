@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#####################################################################################
+#This script runs at boot to create and set the default screen resolution		                 
+#to whichever you wish. I won't be responsible for ANY crash, broken monitor,  		 
+#thermal implosion, radioactive blast, CPU reks, BSODs even in a GNU/Linux box or     
+#whatever damage caused to your computer. Be brave and/or ready to run.	       	         
+#															                                         
+#Engineered by xVlaze, 2016.												 
+#####################################################################################  
+
+#####################################SETUP###########################################
+#Change this to your preferred settings (be honest!):
+RESX=1920
+RESY=1080
+OUTPUT=VGA1
+#####################################################################################
+
+MODELINE=$(cvt $RESX $RESY | awk '/Modeline/' | cut -d' ' -f2-)
+RESNAME=$(cvt $RESX $RESY | awk '/Modeline/' | cut -d' ' -f2-3)
+
+xrandr --newmode $MODELINE
+xrandr --addmode $OUTPUT $RESNAME
+
